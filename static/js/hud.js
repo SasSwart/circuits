@@ -1,31 +1,7 @@
-let width = document.body.clientWidth;
-let height = document.body.clientHeight;
-
-let canvas = document.querySelector("#main_canvas");
-canvas.width = width;
-canvas.height = height;
-
-let context = canvas.getContext("2d");
-
-class LineTool {
-  constructor(context) {
-    this.context = context;
-  }
-  
-  drawLine(x1, y1, x2, y2) {
-    this.context.beginPath();
-    this.context.strokeStyle = 'black';
-    this.context.lineWidth = 2;
-    this.context.moveTo(x1, y1);
-    this.context.lineTo(x2, y2);
-    this.context.stroke();
-    this.context.closePath();
-  }
-}
-
 class HUD {
-  constructor(context) {
+  constructor(context, canvas) {
     this.context = context;
+    this.canvas = canvas;
     
     this.initToolbar();
     this.circuit_menu = document.querySelector(".toolbar #circuits");
@@ -169,12 +145,3 @@ class HUD {
   currentTool = this.TOOLS[0];
   initialTerminalView = null;
 }
-
-let hud = new HUD(context);
-
-(function nextFrame() {
-  setTimeout(() => {
-    hud.render();     
-    nextFrame();
-  }, 100);
-})()
